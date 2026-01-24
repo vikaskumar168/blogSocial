@@ -1,0 +1,55 @@
+services:  # This list defines the "Tupperware boxes" we want.
+
+  mongo:
+    image: mongo:latest
+    container_name: social_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    restart: always
+
+  postgres:  # Service Name: We will use this to talk to it.
+    image: postgres:16
+    # IMAGE: This is the "Blueprint". Docker downloads a pre-made setup
+    # of Postgres version 16 from the internet (Docker Hub).
+    # You don't install Postgres; you just download the image.
+
+    container_name: social_postgres
+    # NAME: This gives the box a readable name in your dashboard
+    # so you don't get a random name like "angry_beaver".
+
+    environment:
+      POSTGRES_DB: social_db
+      POSTGRES_USER: vikas
+      POSTGRES_PASSWORD: password
+    # ENVIRONMENT: These are the "First-time setup" variables.
+    # When the database starts for the first time, it creates a user
+    # named 'vikas' automatically. No manual SQL commands needed!
+
+    ports:
+      - "5432:5432"
+    # PORTS: This is the "Magic Portal".
+    # - The RIGHT 5432 is the port INSIDE the container (where Postgres lives).
+    # - The LEFT 5432 is the port on your WINDOWS machine.
+    # It creates a tunnel. When your Java app connects to localhost:5432,
+    # it gets teleported into the container's port 5432.
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    # VOLUMES: This is vital. Containers are "ephemeral" (temporary).
+    # If you delete the container, you lose your data.
+    # A "Volume" is a folder on your Windows machine that gets "mounted"
+    # into the container.
+    # So even if you delete the container, your data stays safe in this volume.
+
+  redis:
+    image: redis:alpine
+    # "alpine" means a super-tiny version of Linux.
+    # It makes the download size very small (like 5MB instead of 100MB).
+    ports:
+      - "6379:6379" # Standard Redis port.
+
+volumes:
+  postgres_data: # We declare the volume here so Docker creates it.
+
