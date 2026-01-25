@@ -1,6 +1,5 @@
 package com.vikas.social.entity;
 
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +16,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Document(collection = "posts")
-public class Posts {
+public class Post {
 
     @Id
     private String postId;

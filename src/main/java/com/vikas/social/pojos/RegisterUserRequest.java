@@ -1,5 +1,4 @@
-package com.vikas.social.entity;
-
+package com.vikas.social.pojos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -10,9 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Followers {
+public class RegisterUserRequest {
 
-    private Long Id;
-    private Long followerId;
-    private Long followeeId;
+    private String firstName;
 }

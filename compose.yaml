@@ -20,7 +20,7 @@ services:  # This list defines the "Tupperware boxes" we want.
     # so you don't get a random name like "angry_beaver".
 
     environment:
-      POSTGRES_DB: social_db
+      POSTGRES_DB: blog
       POSTGRES_USER: vikas
       POSTGRES_PASSWORD: password
     # ENVIRONMENT: These are the "First-time setup" variables.
@@ -52,4 +52,5 @@ services:  # This list defines the "Tupperware boxes" we want.
 
 volumes:
   postgres_data: # We declare the volume here so Docker creates it.
+  mongo_data:
 
