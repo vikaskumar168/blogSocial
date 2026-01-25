@@ -1,39 +1,62 @@
 package com.vikas.social.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
-@Data
-@AllArgsConstructor
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
+
+    @NotBlank(message = "First name is required")
     private String firstName;
-    private String LastName;
+
+    private String lastName;
+
+    @Column(unique = true, nullable = false)
+    @NotBlank(message = "Username is required")
     private String userName;
+
+    @Column(unique = true, nullable = false)
+    @Email(message = "Invalid email format")
+    @NotBlank(message = "Email is required")
     private String email;
+
     private String mediaUrl;
-    private Long followersCount;
-    private Long followeeCount;
-    private String status; //PUBLIC OR PRIVATE
+
+    @Builder.Default
+    private Long followersCount = 0L;
+
+    @Builder.Default
+    private Long followeeCount = 0L;
+
+    @Enumerated(EnumType.STRING)
+    private AccountStatus status;
 
     @CreatedDate
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdDate;
+
     @LastModifiedDate
     private LocalDateTime modifiedDate;
+}
 
-
+enum AccountStatus {
+    PUBLIC, PRIVATE
 }
