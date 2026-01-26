@@ -38,7 +38,7 @@ public class User {
     @NotBlank(message = "Email is required")
     private String email;
 
-    private String mediaUrl;
+    private String userProfileUrl;
 
     @Builder.Default
     private Long followersCount = 0L;

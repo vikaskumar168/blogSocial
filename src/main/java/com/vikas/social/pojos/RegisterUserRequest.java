@@ -12,4 +12,9 @@ import lombok.NoArgsConstructor;
 public class RegisterUserRequest {
 
     private String firstName;
+    private String lastName;
+    private String userName;
+    private String userProfileUrl;
+    private String status;
+    private String password;
 }
