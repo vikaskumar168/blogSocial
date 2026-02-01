@@ -1,5 +1,6 @@
 package com.vikas.social.entity;
 
+import com.vikas.social.pojos.AccountStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -46,8 +47,9 @@ public class User {
     @Builder.Default
     private Long followeeCount = 0L;
 
-    @Enumerated(EnumType.STRING)
     private AccountStatus status;
+
+    private String password;
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
@@ -55,8 +57,4 @@ public class User {
 
     @LastModifiedDate
     private LocalDateTime modifiedDate;
-}
-
-enum AccountStatus {
-    PUBLIC, PRIVATE
 }
